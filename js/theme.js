@@ -9,6 +9,11 @@ $( document ).ready(function() {
       $("[data-toggle='wy-nav-shift']").removeClass("shift");
       $("[data-toggle='rst-versions']").toggleClass("shift");
     });
+    // color background of current menu items
+    $(document).on('click', ".wy-nav-shift a", function() {
+      $(".wy-nav-shift a").removeClass("current");
+      $(this).addClass("current");
+    });
     $(document).on('click', "[data-toggle='rst-current-version']", function() {
       $("[data-toggle='rst-versions']").toggleClass("shift-up");
     });  
