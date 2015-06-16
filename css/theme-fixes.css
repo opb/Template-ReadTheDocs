@@ -2,8 +2,8 @@
     position:fixed;
 }
 
-.wy-nav-side a:active{
-      background-color: #2980B9 !important;
+.wy-nav-side a.current{
+      background-color: #2980B9;
 }
 
 .wy-side-nav-search>a, .wy-side-nav-search .wy-dropdown>a {
