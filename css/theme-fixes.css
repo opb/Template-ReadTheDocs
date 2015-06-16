@@ -25,14 +25,19 @@ pre > code {
 pre > code.hljs {
     background: transparent;
 }
-pre, table {
+pre{
     border: 1px solid #e1e4e5;
     background: #fff;
     margin: 1px 0 24px 0;
 }
 table{
+    border: 1px solid #e1e4e5;
+    background: #fff;
     padding-bottom: 20px;
     padding-top: 10px;
+}
+tbody td{
+    padding: 3px 5px;
 }
 tbody,thead{
     vertical-align: left;
