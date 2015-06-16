@@ -1,3 +1,7 @@
+.wy-nav-side{
+    position:fixed;
+}
+
 .wy-side-nav-search>a, .wy-side-nav-search .wy-dropdown>a {
     margin-bottom: 0;
 }
