@@ -31,14 +31,12 @@ pre{
     margin: 1px 0 24px 0;
 }
 table{
-    border: 1px solid #e1e4e5;
     background: #fff;
-    padding-bottom: 20px;
-    padding-top: 10px;
+    margin-bottom: 20px;
+    margin-top: 10px;
 }
-tbody td{
-    padding: 3px 5px;
-}
-tbody,thead{
+tbody td, thead th{
+    padding: 5px 10px;
     vertical-align: left;
+    border: 1px solid #e1e4e5;
 }
