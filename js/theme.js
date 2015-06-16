@@ -10,8 +10,8 @@ $( document ).ready(function() {
       $("[data-toggle='rst-versions']").toggleClass("shift");
     });
     // color background of current menu items
-    $(document).on('click', ".wy-nav-shift a", function() {
-      $(".wy-nav-shift a").removeClass("current");
+    $(document).on('click', ".wy-menu-vertical ul li a", function() {
+      $(".wy-menu-vertical ul li a").removeClass("current");
       $(this).addClass("current");
     });
     $(document).on('click', "[data-toggle='rst-current-version']", function() {
