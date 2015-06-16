@@ -2,7 +2,7 @@
     position:fixed;
 }
 
-.wy-nav-side a.current{
+.wy-menu-vertical ul li a.current{
       background-color: #2980B9;
 }
 
