@@ -2,6 +2,10 @@
     position:fixed;
 }
 
+.wy-nav-side a:active{
+      background-color: #2980B9 !important;
+}
+
 .wy-side-nav-search>a, .wy-side-nav-search .wy-dropdown>a {
     margin-bottom: 0;
 }
