@@ -10,6 +10,60 @@
     margin-bottom: 0;
 }
 
+li.toctree-l2{
+    font-size: 0.9rem;
+}
+
+li.toctree-l2 a{
+    padding-left: 3em;
+}
+
+.codetabs > pre{
+    display: none;
+}
+
+.codetabs > pre[class*="language-"]{
+    margin-top: 0;
+}
+
+.tabselector button{
+    margin-right: 8px;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+h1{
+    font-size: 225%;
+}
+
+h2{
+  font-size: 180%;
+  text-decoration: underline;
+  color: #2980B9;
+  margin-top: 50px;
+}
+
+h5{
+    margin-left: -48px;
+    font-size: 225%;
+    font-family: monospace;
+    margin-top: 50px;
+    margin-bottom: 15px;
+}
+
+h5 i{
+    font-size: 75%;
+}
+
+h6{
+    font-size: 150%;
+    margin-bottom: 15px;
+}
+
+footer{
+    display: none;
+}
+
 /* Code blocks */
 pre > code {
     display: block;

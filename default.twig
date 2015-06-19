@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
 
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic'
-          rel='stylesheet' type='text/css'>
-
-    <link rel="stylesheet" href="{{ baseUrl }}/css/theme.css" type="text/css"/>
-    <link rel="stylesheet" href="{{ baseUrl }}/css/theme-fixes.css" type="text/css"/>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic">
+    <link rel="stylesheet" href="{{ baseUrl }}/css/theme.css">
+    <link rel="stylesheet" href="{{ baseUrl }}/css/theme-fixes.css">
+    <link rel="stylesheet" href="{{ baseUrl }}/css/prism.css">
 </head>
 <body class="wy-body-for-nav">
 
@@ -24,7 +22,7 @@
             <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
                 <ul>
                     {% for itemId, item in menu.items %}
-                        <li class="toctree-l1 {{ itemId == currentMenu ? 'current' }}">
+                        <li class="toctree-{{ item.isSubMenu == true ? 'l2' : 'l1' }} {{ itemId == currentMenu ? 'current' }}">
                             <a class="reference internal {{ itemId == currentMenu ? 'current' }}"
                                href="{{ item.absoluteUrl|default(baseUrl ~ '/' ~ item.relativeUrl) }}">
                                 {{ item.text|raw }}
@@ -73,14 +71,85 @@
 
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
     <script src="{{ baseUrl }}/js/theme.js"></script>
-
+    <script src="{{ baseUrl }}/js/prism.js"></script>
     <script>
-        $(function() {
-            // Syntax highlighting
-            hljs.initHighlightingOnLoad();
+        // function to update the hight of the various headings
+        // reruns when a codetab button is clicked, because the
+        // height of the page likely changes at that point
+        sectionsCalc = function(){
+            window.sections = {};
+            _height  = $(window).height();
+
+            // Grab positions of our sections
+            $('h1, h2, h3, h4, h5').each(function(){
+                sections[this.id] = $(this).offset().top;
+            });
+        }
+
+        // find the active menu item based on the current scroll position
+        // will be run on $(document).scroll()
+        activateSection = function(pos){
+            var tSection = null;
+            var tSectionPos = 0;
+            for(var section in window.sections){
+                if(window.sections[section] < pos){
+                    if(window.sections[section] > tSectionPos){
+                        tSection = section;
+                        tSectionPos = window.sections[section];
+                    }
+                }
+            }
+            var newCurrent = $('.wy-nav-side li a[href$=#'+tSection+']');
+            if(newCurrent.length){
+                $('.wy-nav-side li a').removeClass('current');
+                newCurrent.addClass('current');
+            }
+        }
+
+        // wrap adjacent sections of code together in a .codetabs div
+        // reiles on js being the last language to be defined
+        // allows us to flip between different "tabs"
+        $('pre > code[class*=language-javascript]').each(function(){ 
+            $(this).parent().prevUntil(':not(pre)').addBack().wrapAll('<div class="codetabs">');
         });
+
+        // add an icon to make the API enpoint headings stand out
+        $('h5').prepend('<i class="fa fa-link"></i>&nbsp;');
+
+        // create tabs/buttons for each language in a .codetabs div
+        $('.codetabs').each(function(){
+            var tabselector = $('<div class="tabselector"></div>');
+            $('pre > code', this).each(function(){
+                var classes = $(this).attr('class');
+                if(classes){
+                    var regexp = /language\-([\d\w]+)/g;
+                    var arr = regexp.exec(classes);
+                    if(arr.length){
+                        tabselector.append('<button data-toggle="'+arr[1]+'" class="btn btn-info btn-sm">'+arr[1]+'</button>');
+                    }
+                }
+            });
+            $('pre:first-child', $(this)).show();
+            if($('button', tabselector).length > 1) $(this).prepend(tabselector);
+        });
+
+        // show the right codeblock whe the tab is selected.
+        // then recalculate section heights
+        $('.codetabs button').click(function(){
+            var parent = $(this).closest('.codetabs');
+            var langClass = 'language-' + $(this).data('toggle');
+            $('pre', parent).hide();
+            $('pre[class*='+langClass+']', parent).show();
+            sectionsCalc();
+        });
+
+        $(document).scroll(function(){
+            activateSection($(window).scrollTop());
+        });
+
+        sectionsCalc();
+
     </script>
 
 </body>
