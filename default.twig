@@ -24,7 +24,7 @@
                     {% for itemId, item in menu.items %}
                         <li class="toctree-{{ item.isSubMenu == true ? 'l2' : 'l1' }} {{ itemId == currentMenu ? 'current' }}">
                             <a class="reference internal {{ itemId == currentMenu ? 'current' }}"
-                               href="{{ item.absoluteUrl|default(baseUrl ~ '/' ~ item.relativeUrl) }}">
+                               href="{{ item.absoluteUrl|default(baseUrl ~ item.relativeUrl) }}">
                                 {{ item.text|raw }}
                             </a>
                         </li>
