@@ -21,7 +21,7 @@
 
             <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
                 <ul>
-                    {% for itemId, item in menu.items %}
+                    {% for itemId, item in attribute(menu, scope) %}
                         <li class="toctree-{{ item.isSubMenu == true ? 'l2' : 'l1' }} {{ itemId == currentMenu ? 'current' }}">
                             <a class="reference internal {{ itemId == currentMenu ? 'current' }}"
                                href="{{ item.absoluteUrl|default(item.relativeUrl)|default('#') }}">
