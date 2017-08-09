@@ -1,5 +1,6 @@
 .wy-nav-side{
     position:fixed;
+    overflow-y: scroll;
 }
 
 .wy-menu-vertical ul li a.current{
